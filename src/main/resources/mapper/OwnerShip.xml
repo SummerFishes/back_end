@@ -26,8 +26,7 @@
         where ownership_id = #{ownership_id}
     </update>
 
-    <insert id="add" parameterType="int"
-            useGeneratedKeys="true" keyProperty="ownership_id">
+    <insert id="add" parameterType="int">
         insert into stocktrade.ownership (user_id, stock_id, ownership_num)
         values (#{user_id}, #{stock_id},0)
     </insert>

@@ -11,6 +11,6 @@ import java.util.Map;
 public interface TradeService {
 
     public String trade(String clientName, String ticker, String sector, String salesperson,
-                        String ric, int size, float price, String currency, int hp,
-                        int flag);
+                        String ric, String size, String price, String currency, String hp,
+                        String flag);
 }

@@ -24,11 +24,11 @@ public class TradeController {
         String sector = jsonObject.getString("sector");
         String salesperson = jsonObject.getString("salesperson");
         String ric = jsonObject.getString("ric");
-        int size = jsonObject.getInteger("size");
-        float price = jsonObject.getFloat("price");
+        String size = jsonObject.getString("size");
+        String price = jsonObject.getString("price");
         String currency = jsonObject.getString("currency");
-        int hp = jsonObject.getString("hp").equals("HT") ? 0 : 1;
-        int flag = jsonObject.getInteger("flag");
+        String hp = jsonObject.getString("hp");
+        String flag = jsonObject.getString("flag");
         //存储返回结果
         String result = tradeService.trade(clientName, ticker, sector, salesperson,
                 ric,size, price, currency, hp, flag);

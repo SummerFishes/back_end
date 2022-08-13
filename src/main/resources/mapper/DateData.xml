@@ -20,7 +20,7 @@
         where date_date_id = ${date_date_id}
     </update>
 
-    <insert id="add" useGeneratedKeys="true" keyProperty="date_date_id">
+    <insert id="add">
         insert into stocktrade.date_data (data_date, buy_num, sell_num, flag)
         values (DATE_FORMAT(NOW(), '%Y-%m-%d'), 0, 0, 0)
     </insert>

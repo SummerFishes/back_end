@@ -34,10 +34,18 @@ public class ShowTableServiceImpl implements ShowTableService {
         float totalBuy = 0, totalSell = 0;
         for (Map<String, Object> map : value){
             int clientSide = (int) map.get("clientSide");
+            int hp = (int) map.get("hp");
             if (clientSide == 0){
+                map.put("clientSide","buy");
                 totalBuy += (float) map.get("price") * (int) map.get("size");
             } else {
+                map.put("clientSide","sell");
                 totalSell += (float) map.get("price") * (int) map.get("size");
+            }
+            if(hp == 0){
+                map.put("hp","HT");
+            }else{
+                map.put("hp","PT");
             }
             float notionalPrice =(float) map.get("price") * exchangeRate;
             map.put("notional", String.format("%.2f",notionalPrice));

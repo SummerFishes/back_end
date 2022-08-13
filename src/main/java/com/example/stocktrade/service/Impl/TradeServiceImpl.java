@@ -29,8 +29,20 @@ public class TradeServiceImpl implements TradeService {
 
     @Override
     public String trade(String clientName, String ticker, String sector, String salesperson,
-                        String ric, int size, float price, String currency, int hp,
-                        int flag) {
+                        String ric, String sizeOld, String priceOld, String currency, String hpOld,
+                        String flagOld) {
+        //保证数据不为空,会报空指针异常
+        if(clientName.equals("") || ticker.equals("") || sector.equals("") || salesperson.equals("")
+        || ric.equals("") || sizeOld.equals("") || priceOld.equals("") || currency.equals("")
+        || hpOld.equals("") || flagOld.equals("")){
+            return "数据为空！";
+        }
+        //若不为空，进行数据转换
+        int size = Integer.parseInt(sizeOld);
+        float price = Float.valueOf(priceOld);
+        int hp = hpOld.equals("HT") ? 0 : 1;
+        int flag = Integer.parseInt(flagOld);
+
         String result = "";
         //首先判断用户，股票，机构，销售员是否存在
         int user_id = 0, stock_id = 0, sale_person_id = 0;
@@ -54,11 +66,12 @@ public class TradeServiceImpl implements TradeService {
             }
             int ownNum = 0;
             if (ownership_id  == 0){
-                //可能存在问题，还没购买就将该股票存入拥有记录中，虽然记录的是0
+                //若操作未成功也会产生一行新数据在ownership表
                 addOwn(user_id, stock_id);
-            } else {
+            }else{
                 ownNum = searchOwnNum(user_id, stock_id);
             }
+
             int sumNum = searchSumNum(stock_id);
             //如果是buy操作
             if(flag == 0){
@@ -91,7 +104,7 @@ public class TradeServiceImpl implements TradeService {
                     //如果是卖，则填size的负数
                     updateOwn(-size, ownership_id);
                 } else {
-                    System.out.println("buy操作系统故障："+result);
+                    System.out.println("sell操作系统故障："+result);
                 }
             }
         }
@@ -107,6 +120,7 @@ public class TradeServiceImpl implements TradeService {
         int date_date_id = 0;
         try {
             date_date_id = dateDataMapper.searchId();
+            System.out.println("id: "+date_date_id);
         } catch (Exception e){
 
         }
@@ -115,14 +129,17 @@ public class TradeServiceImpl implements TradeService {
             if(!dateDataMapper.add()){
                 str = "添加数据到date_data表时出错";
             }
+            date_date_id = dateDataMapper.searchId();
         }
+
         if (buy_num > 0){
+            System.out.println(date_date_id);
             if(!dateDataMapper.updateBuy(buy_num, date_date_id)){
                 str = "更新date_data表的buy_num时出错";
             }
         }
         if (sell_num > 0){
-            if(dateDataMapper.updateSell(sell_num, date_date_id)){
+            if(!dateDataMapper.updateSell(sell_num, date_date_id)){
                 str = "更新date_data表的sell_num时出错";
             }
         }

@@ -65,7 +65,7 @@ CREATE TABLE `stock`  (
   `type_id` int(0) NULL DEFAULT NULL COMMENT '种类',
   `RIC` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '股票代码',
   `stock_name` varchar(64) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '股票名字',
-  `stock_price` decimal(10, 2) NULL DEFAULT NULL COMMENT '股票价格',
+  `stock_price` float NULL DEFAULT NULL COMMENT '股票价格',
   `release_num` int(0) NULL DEFAULT NULL COMMENT '发行数',
   `stock_limit` int(0) NULL DEFAULT NULL COMMENT '股票限额（单账号）',
   `flag` int(0) NULL DEFAULT NULL COMMENT '股票是否可以交易  0否 1是',
