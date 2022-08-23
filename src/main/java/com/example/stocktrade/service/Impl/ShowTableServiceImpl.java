@@ -23,14 +23,14 @@ public class ShowTableServiceImpl implements ShowTableService {
     public JSONObject showTable(String gap) {
         Date endTime = getEndTime();
         Date startTime = getStartTime(endTime, gap);
-        System.out.println("startTime"+format.format(startTime));
-        System.out.println("endTime"+format.format(endTime));
+        System.out.println("table的startTime"+format.format(startTime));
+        System.out.println("table的endTime"+format.format(endTime));
 
         //调取的API后续再查
         float exchangeRate = 7;
 
         List<Map<String, Object>> value = tradeMapper.showTable(startTime, endTime);
-        System.out.println("value"+value);
+        System.out.println("table的value"+value);
         float totalBuy = 0, totalSell = 0;
         for (Map<String, Object> map : value){
             int clientSide = (int) map.get("clientSide");
@@ -63,32 +63,6 @@ public class ShowTableServiceImpl implements ShowTableService {
         jsonObject.put("netNotional",
                 String.format("%.2f", (totalBuy - totalSell) * exchangeRate));
 
-
-//        List<Map<String, Object>> value = tradeMapper.showTable(startTime, endTime);
-//        System.out.println("value"+value);
-//        float totalBuy = 0, totalSell = 0;
-//        for (Map<String, Object> map : value){
-//            int clientSide = (int) map.get("clientSide");
-//            float num = (float) map.get("price") * (int) map.get("size");
-//            if (clientSide == 0){
-//                totalBuy += (float)(Math.round(num*100)/100);
-//            } else {
-//                totalSell += (float)(Math.round(num*100)/100);
-//            }
-//            float notionalPrice =(float) map.get("price") * exchangeRate;
-//            map.put("notional", (float)(Math.round(notionalPrice*100)/100));
-//        }
-//        JSONObject jsonObject = new JSONObject();
-//        jsonObject.put("value", value);
-//        jsonObject.put("totalBuy", totalBuy);
-//        jsonObject.put("totalSell", totalSell);
-//        jsonObject.put("quantity", totalBuy - totalSell);
-//        jsonObject.put("buyNotional",
-//                (float)(Math.round(totalBuy * exchangeRate*100)/100));
-//        jsonObject.put("sellNotional",
-//                (float)(Math.round(totalSell * exchangeRate*100)/100));
-//        jsonObject.put("netNotional",
-//                (float)(Math.round((totalBuy - totalSell) * exchangeRate)*100)/100);
         return jsonObject;
     }
 

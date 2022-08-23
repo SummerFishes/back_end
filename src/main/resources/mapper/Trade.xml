@@ -25,4 +25,11 @@
               trade.trade_date between #{startTime} and #{endTime}
 
     </select>
+    <select id="showGraph" parameterType="date" resultType="hashmap">
+        select date_data.data_date as date, date_data.buy_num as buyNum,
+               date_data.sell_num as sellNum
+        from stocktrade.date_data
+        where
+            date_data.data_date between #{startTime} and #{endTime}
+    </select>
 </mapper>

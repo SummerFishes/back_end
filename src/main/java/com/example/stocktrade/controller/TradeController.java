@@ -13,6 +13,8 @@ public class TradeController {
     TradeService tradeService;
     @Resource
     ShowTableService showTableService;
+    @Resource
+    ShowGraphService showGraphService;
 
     @PostMapping("/buy_sell")
     @CrossOrigin
@@ -42,6 +44,15 @@ public class TradeController {
     public JSONObject showTable(@RequestBody JSONObject jsonObject) {
         String gap = jsonObject.getString("gap");
         JSONObject res = showTableService.showTable(gap);
+        return res;
+    }
+
+    @PostMapping("/showGraph")
+    @CrossOrigin
+    public JSONObject showGraph(@RequestBody JSONObject jsonObject) {
+        String startTime = jsonObject.getString("startTime");
+        String endTime = jsonObject.getString("endTime");
+        JSONObject res = showGraphService.showGraph(startTime, endTime);
         return res;
     }
 }
