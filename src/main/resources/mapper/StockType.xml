@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.StockTypeMapper">
+    <select id="getRate"  resultType="float">
+        select rate
+        from stocktrade.stock_type
+        where type = #{currency}
+    </select>
+
+    <update id="updateRate" >
+        update stocktrade.stock_type
+        set rate = #{rate}
+        where type = #{currency}
+    </update>
+</mapper>

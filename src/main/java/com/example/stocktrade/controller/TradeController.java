@@ -16,7 +16,7 @@ public class TradeController {
     @Resource
     ShowGraphService showGraphService;
 
-    @PostMapping("/buy_sell")
+    @PostMapping("/addTrade")
     @CrossOrigin
     public JSONObject addTrade(@RequestBody JSONObject jsonObject) {
         System.out.println("接收到数据："+jsonObject.toString());
@@ -39,7 +39,7 @@ public class TradeController {
         return res;
     }
 
-    @PostMapping("/filter")
+    @PostMapping("/showTable")
     @CrossOrigin
     public JSONObject showTable(@RequestBody JSONObject jsonObject) {
         String gap = jsonObject.getString("gap");

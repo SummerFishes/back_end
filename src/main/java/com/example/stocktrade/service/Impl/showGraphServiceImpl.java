@@ -18,6 +18,7 @@ public class ShowGraphServiceImpl implements ShowGraphService {
 
     @Override
     public JSONObject showGraph(String startTime, String endTime) {
+        System.out.println("起始时间：" + startTime + endTime);
         Date startDate = getTime(startTime);
         Date endDate = getTime(endTime);
         List<Map<String, Object>> value = tradeMapper.showGraph(endDate, startDate);
@@ -34,7 +35,7 @@ public class ShowGraphServiceImpl implements ShowGraphService {
             float total = buy - sell;
             chartDate.add(date);
             chartBuy.add(buy);
-            chartSell.add(sell);
+            chartSell.add(-sell);
             chartTotal.add(total);
         }
         JSONObject result = new JSONObject();

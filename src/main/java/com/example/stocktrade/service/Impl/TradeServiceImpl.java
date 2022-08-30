@@ -35,7 +35,7 @@ public class TradeServiceImpl implements TradeService {
         if(clientName.equals("") || ticker.equals("") || sector.equals("") || salesperson.equals("")
         || ric.equals("") || sizeOld.equals("") || priceOld.equals("") || currency.equals("")
         || hpOld.equals("") || flagOld.equals("")){
-            return "数据为空！";
+            return "存在空数据！";
         }
         //若不为空，进行数据转换
         int size = Integer.parseInt(sizeOld);
