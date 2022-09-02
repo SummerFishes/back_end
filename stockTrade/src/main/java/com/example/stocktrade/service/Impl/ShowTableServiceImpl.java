@@ -27,9 +27,6 @@ public class ShowTableServiceImpl implements ShowTableService {
     @Resource
     TradeMapper tradeMapper;
 
-    public ShowTableServiceImpl() {
-    }
-
     public JSONObject showTable(String gap, String type, String sortType) {
         Date endTime = this.getEndTime();
         Date startTime = this.getStartTime(endTime, gap);

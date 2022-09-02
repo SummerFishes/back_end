@@ -14,4 +14,10 @@ public interface TradeMapper {
     ArrayList<Map<String, Object>> showTable1(Date startTime, Date endTime, String type);
 
     ArrayList<Map<String, Object>> showTable2(Date startTime, Date endTime, String type);
+
+    Map<String, Object> showTableTotalBuy(Date startTime, Date endTime);
+
+    Map<String, Object> showTableTotalSell(Date startTime, Date endTime);
+
+
 }

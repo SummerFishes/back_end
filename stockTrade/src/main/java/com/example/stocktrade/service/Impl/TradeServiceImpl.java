@@ -77,6 +77,7 @@ public class TradeServiceImpl implements TradeService {
                         sectorStockId = this.searchIssueAndStock(stockId, sectorId);
                         salePersonId = this.searchSalePersonId(salesperson);
                     } catch (Exception var30) {
+                        System.out.println(var30);
                     }
 
                     if (userId == 0) {
@@ -95,6 +96,7 @@ public class TradeServiceImpl implements TradeService {
                         try {
                             ownershipId = this.searchOwnId(userId, stockId);
                         } catch (Exception var29) {
+                            System.out.println(var29);
                         }
 
                         int ownNum = 0;
@@ -109,8 +111,8 @@ public class TradeServiceImpl implements TradeService {
                         if (flag == 0) {
                             Map<String, Integer> stockTemp = this.searchStockLimit(stockId);
                             System.out.println(stockTemp);
-                            int stockLimit = (Integer)stockTemp.get("stockLimit");
-                            int releaseNum = (Integer)stockTemp.get("releaseNum");
+                            int stockLimit = stockTemp.get("stockLimit");
+                            int releaseNum = stockTemp.get("releaseNum");
                             if (size + ownNum > stockLimit) {
                                 result = "您持有的该支股票将超出限额，购买失败";
                             } else if (size + sumNum > releaseNum) {
@@ -146,7 +148,7 @@ public class TradeServiceImpl implements TradeService {
     }
 
     public boolean addTrade(int userId, int stockId, int salePersonId, int tradeSize, int tradeType, int tradeMethod, float tradePerPrice) {
-        Trade trade = new Trade(0, userId, stockId, salePersonId, tradeSize, (Date)null, (Timestamp)null, tradeType, tradeMethod, tradePerPrice);
+        Trade trade = new Trade(0, userId, stockId, salePersonId, tradeSize, null, null, tradeType, tradeMethod, tradePerPrice);
         return this.tradeMapper.add(trade);
     }
 
@@ -157,6 +159,7 @@ public class TradeServiceImpl implements TradeService {
             dateDataId = this.dateDataMapper.searchId();
             System.out.println("id: " + dateDataId);
         } catch (Exception var5) {
+            System.out.println(var5);
         }
 
         String str = "对date_data表的操作成功";
