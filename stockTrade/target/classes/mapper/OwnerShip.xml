@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.OwnerShipMapper">
+    <select id="searchOwnNum" parameterType="int" resultType="int">
+        select ownership_num
+        from stocktrade.ownership
+        where stock_id = #{stockId} and user_id = #{userId}
+    </select>
+
+    <select id="searchSumNum" parameterType="int" resultType="int">
+        select sum(ownership_num)
+        from stocktrade.ownership
+        where stock_id = #{stockId}
+    </select>
+
+    <select id="searchId" parameterType="int" resultType="int">
+        select ownership_id
+        from stocktrade.ownership
+        where user_id = #{userId} and stock_id = #{stockId}
+    </select>
+
+    <update id="update" parameterType="int">
+        update stocktrade.ownership
+        set ownership_num = #{num} + ownership.ownership_num
+        where ownership_id = #{ownershipId}
+    </update>
+
+    <insert id="add" parameterType="int">
+        insert into stocktrade.ownership (user_id, stock_id, ownership_num)
+        values (#{userId}, #{stockId},0)
+    </insert>
+</mapper>

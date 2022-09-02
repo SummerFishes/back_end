@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.TradeMapper">
+    <insert id="add" parameterType="com.example.stocktrade.entity.Trade">
+        insert into stocktrade.trade (user_id, stock_id, sale_person_id,
+                                      trade_size, trade_date, trade_time, trade_type,
+                                      trade_method,trade_per_price)
+        values (${userId}, ${stockId}, ${salePersonId}, ${tradeSize},
+                DATE_FORMAT(NOW(), '%Y-%m-%d'), DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s'),
+                ${tradeType}, ${tradeMethod}, ${tradePerPrice})
+    </insert>
+    <select id="showTable1" resultType="hashmap">
+        select trade.trade_date as date, user.username as clientName,
+               trade.trade_type as clientSide, stock.stock_name as ticker,
+               stock.RIC as ric, trade.trade_size as size, trade.trade_per_price as price,
+               stock_type.type as currency, issuer_sector.issuer_sector_name as sector,
+               sale_person.person_name as salesperson, trade.trade_method as hp
+        from stocktrade.user, stocktrade.trade, stocktrade.stock, stocktrade.stock_type,
+             stocktrade.issuer_sector, stocktrade.sale_person
+        where trade.stock_id = stock.stock_id and trade.user_id = user.user_id and
+            trade.sale_person_id = sale_person.sale_person_id and
+            stock.issuer_sector_id = issuer_sector.issuer_sector_id and
+            stock.type_id = stock_type.type_id and
+            trade.trade_date between #{startTime} and #{endTime} order by trade.${type} asc
+    </select>
+
+    <select id="showTable2" resultType="hashmap">
+        select trade.trade_date as date, user.username as clientName,
+               trade.trade_type as clientSide, stock.stock_name as ticker,
+               stock.RIC as ric, trade.trade_size as size, trade.trade_per_price as price,
+               stock_type.type as currency, issuer_sector.issuer_sector_name as sector,
+               sale_person.person_name as salesperson, trade.trade_method as hp
+        from stocktrade.user, stocktrade.trade, stocktrade.stock, stocktrade.stock_type,
+             stocktrade.issuer_sector, stocktrade.sale_person
+        where trade.stock_id = stock.stock_id and trade.user_id = user.user_id and
+            trade.sale_person_id = sale_person.sale_person_id and
+            stock.issuer_sector_id = issuer_sector.issuer_sector_id and
+            stock.type_id = stock_type.type_id and
+            trade.trade_date between #{startTime} and #{endTime} order by trade.${type} desc
+    </select>
+</mapper>

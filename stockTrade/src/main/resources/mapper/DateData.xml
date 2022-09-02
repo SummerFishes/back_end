@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.DateDataMapper">
+    <select id="searchId" parameterType="Date" resultType="int">
+        select date_date_id
+        from stocktrade.date_data
+        where data_date = DATE_FORMAT(NOW(), '%Y-%m-%d')
+    </select>
+
+    <update id="updateBuy" parameterType="float">
+        update stocktrade.date_data
+        set buy_num = #{buyNum} + date_data.buy_num
+        where date_date_id = ${dateDataId}
+    </update>
+
+    <update id="updateSell" parameterType="float">
+        update stocktrade.date_data
+        set sell_num = #{sellNum} + date_data.sell_num
+        where date_date_id = ${dateDataId}
+    </update>
+
+    <insert id="add">
+        insert into stocktrade.date_data (data_date, buy_num, sell_num, flag)
+        values (DATE_FORMAT(NOW(), '%Y-%m-%d'), 0, 0, 0)
+    </insert>
+
+    <select id="showGraph" parameterType="date" resultType="hashmap">
+        select date_data.data_date as date, date_data.buy_num as buyNum,
+               date_data.sell_num as sellNum
+        from stocktrade.date_data
+        where date_data.data_date between #{startTime} and #{endTime}
+    </select>
+</mapper>

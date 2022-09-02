@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.StockMapper">
+    <select id="searchId" parameterType="String" resultType="int">
+        select stock_id
+        from stocktrade.stock as stock,
+             stocktrade.stock_type as type
+        where stock.stock_name = #{stockName}
+          and stock.type_id = type.type_id
+          and type.type = #{stockType}
+          and stock.ric = #{ric}
+    </select>
+
+    <select id="searchIssueAndStock" parameterType="int" resultType="int">
+        select stock_id
+        from stocktrade.stock as stock
+        where stock.stock_id = #{stockId} and stock.issuer_sector_id = #{sectorId}
+    </select>
+
+    <select id="searchLimitAndRelease" parameterType="int" resultType="hashmap">
+        select stock_limit as stockLimit, release_num as releaseNum
+        from stocktrade.stock
+        where stock_id = #{stockId}
+    </select>
+</mapper>
