@@ -15,7 +15,7 @@ public class Test1Controller {
     @CrossOrigin
     public int searchUser(@RequestBody String userName){
         System.out.println(userName);
-        System.out.println("这是1号机");
+        System.out.println("这是2号机");
         System.out.println();
         System.out.println();
         System.out.println();

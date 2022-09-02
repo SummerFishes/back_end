@@ -8,15 +8,16 @@
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
         <module name="stockTrade-micro" />
+        <module name="test1Service" />
         <module name="GatewayServer" />
         <module name="eurekaServer" />
-        <module name="test2Service" />
         <module name="UserClientService" />
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
       <module name="eureka-server" target="1.8" />
       <module name="gatewayServer" target="1.8" />
+      <module name="test2Service" target="1.8" />
     </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
@@ -26,6 +27,7 @@
       <module name="eureka-server" options="-parameters" />
       <module name="eurekaServer" options="-parameters" />
       <module name="gatewayServer" options="-parameters" />
+      <module name="test1Service" options="-parameters" />
       <module name="test2Service" options="-parameters" />
     </option>
   </component>
