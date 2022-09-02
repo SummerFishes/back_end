@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.example.stocktrade.dao.DateDataMapper">
+    <select id="searchId" parameterType="Date" resultType="int">
+        select date_date_id
+        from stocktrade.date_data
+        where data_date = DATE_FORMAT(NOW(), '%Y-%m-%d')
+    </select>
+
+    <update id="updateBuy" parameterType="float">
+        update stocktrade.date_data
+        set buy_num = #{buy_num} + date_data.buy_num
+        where date_date_id = ${date_date_id}
+    </update>
+
+    <update id="updateSell" parameterType="float">
+        update stocktrade.date_data
+        set sell_num = #{sell_num} + date_data.sell_num
+        where date_date_id = ${date_date_id}
+    </update>
+
+    <insert id="add">
+        insert into stocktrade.date_data (data_date, buy_num, sell_num, flag)
+        values (DATE_FORMAT(NOW(), '%Y-%m-%d'), 0, 0, 0)
+    </insert>
+</mapper>
